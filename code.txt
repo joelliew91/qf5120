@@ -752,6 +752,119 @@ X-squared = 184.93, df = 12, p-value < 2.2e-16
  Lags Statistic   df pvalue
    12   145.429 9.36      0
 
+> m1 = garchFit(~garch(1,1),data=data$ko,trace=F)
+> m2 = garchFit(~garch(2,1),data=data$ko,trace=F)
+> summary(m1)
+
+Title:
+ GARCH Modelling 
+
+Call:
+ garchFit(formula = ~garch(1, 1), data = data$ko, trace = F) 
+
+Mean and Variance Equation:
+ data ~ garch(1, 1)
+<environment: 0x00000000384b6a78>
+ [data = data$ko]
+
+Conditional Distribution:
+ norm 
+
+Coefficient(s):
+       mu      omega     alpha1      beta1  
+0.0123677  0.0002592  0.0987809  0.8297573  
+
+Std. Errors:
+ based on Hessian 
+
+Error Analysis:
+        Estimate  Std. Error  t value Pr(>|t|)    
+mu     1.237e-02   2.267e-03    5.455 4.90e-08 ***
+omega  2.592e-04   8.641e-05    3.000   0.0027 ** 
+alpha1 9.878e-02   2.261e-02    4.368 1.25e-05 ***
+beta1  8.298e-01   3.393e-02   24.458  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Log Likelihood:
+ 869.3329    normalized:  1.427476 
+
+Description:
+ Sat Mar 26 23:05:11 2016 by user: joel 
+
+
+Standardised Residuals Tests:
+                                Statistic p-Value     
+ Jarque-Bera Test   R    Chi^2  83.09438  0           
+ Shapiro-Wilk Test  R    W      0.982898  1.470701e-06
+ Ljung-Box Test     R    Q(10)  9.877629  0.4512942   
+ Ljung-Box Test     R    Q(15)  18.69547  0.2278667   
+ Ljung-Box Test     R    Q(20)  21.54345  0.3657889   
+ Ljung-Box Test     R^2  Q(10)  12.54335  0.2503354   
+ Ljung-Box Test     R^2  Q(15)  13.04873  0.5985339   
+ Ljung-Box Test     R^2  Q(20)  14.33025  0.8133643   
+ LM Arch Test       R    TR^2   10.79746  0.5463519   
+
+Information Criterion Statistics:
+      AIC       BIC       SIC      HQIC 
+-2.841816 -2.812838 -2.841901 -2.830543 
+
+> summary(m2)
+
+Title:
+ GARCH Modelling 
+
+Call:
+ garchFit(formula = ~garch(2, 1), data = data$ko, trace = F) 
+
+Mean and Variance Equation:
+ data ~ garch(2, 1)
+<environment: 0x000000003a88c890>
+ [data = data$ko]
+
+Conditional Distribution:
+ norm 
+
+Coefficient(s):
+        mu       omega      alpha1      alpha2       beta1  
+0.01228861  0.00028495  0.05032646  0.07717077  0.79635712  
+
+Std. Errors:
+ based on Hessian 
+
+Error Analysis:
+        Estimate  Std. Error  t value Pr(>|t|)    
+mu     0.0122886   0.0022269    5.518 3.42e-08 ***
+omega  0.0002849   0.0001016    2.804  0.00505 ** 
+alpha1 0.0503265   0.0297111    1.694  0.09029 .  
+alpha2 0.0771708   0.0444357    1.737  0.08244 .  
+beta1  0.7963571   0.0446987   17.816  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Log Likelihood:
+ 870.7469    normalized:  1.429798 
+
+Description:
+ Sat Mar 26 23:05:27 2016 by user: joel 
+
+
+Standardised Residuals Tests:
+                                Statistic p-Value     
+ Jarque-Bera Test   R    Chi^2  73.93383  1.110223e-16
+ Shapiro-Wilk Test  R    W      0.9839772 3.138995e-06
+ Ljung-Box Test     R    Q(10)  10.20487  0.4227068   
+ Ljung-Box Test     R    Q(15)  19.37168  0.1973823   
+ Ljung-Box Test     R    Q(20)  21.9687   0.3422116   
+ Ljung-Box Test     R^2  Q(10)  10.34415  0.410836    
+ Ljung-Box Test     R^2  Q(15)  10.78324  0.7678034   
+ Ljung-Box Test     R^2  Q(20)  11.86947  0.9204953   
+ LM Arch Test       R    TR^2   9.808609  0.6327469   
+
+Information Criterion Statistics:
+      AIC       BIC       SIC      HQIC 
+-2.843176 -2.806954 -2.843309 -2.829084 
+
 
 
 

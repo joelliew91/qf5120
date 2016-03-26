@@ -156,12 +156,12 @@ c)\\
 a)\\
 \bigskip
 We test $H_{0}:\mu=0$ vs $H_{1}:\mu= 0$\\
-T-test: t = 4.2198, df = 608, p-value = 2.819e-05
-Hence, we reject the Null Hypothesis that expected monthly log return is zero.\\
+T-test: t = 4.2198, df = 608, p-value = 2.819e-05\\
+Hence, we reject the Null Hypothesis that expected monthly log return is zero and the mean is 0.01057841.\\
 Ljung-Box Test(12 lags):X-squared = 14.821, df = 12, p-value = 0.2514\\
 Hence we cannot reject the Null Hypothesis that there are no serial correlations in the series.\\
 Next, we test for ARCH effects in the log returns:\\
-Ljung-Box Test ($R^2$,12 Lags): X-squared = 184.93, df = 12, p-value < 2.2e-16\\
+Ljung-Box Test ($R^2$,12 Lags): X-squared = 184.93, df = 12, p-value \le 2.2e-16\\
 LM ARCH Test:\\
 \begin{verbatim}
  Lags Statistic   df pvalue
@@ -171,8 +171,35 @@ Therefore, we can reject the Null Hypothesis:there is no ARCH effect on the firs
 \bigskip
 b)\\
 \bigskip
+GARCH(1,1):\\
+\begin{verbatim}
+Ljung-Box Test     R^2  Q(10)  12.54335  0.2503354   
+Ljung-Box Test     R^2  Q(15)  13.04873  0.5985339 
+Log Likelihood:
+ 869.3329    normalized:  1.427476
+      AIC       BIC       SIC      HQIC 
+-2.841816 -2.812838 -2.841901 -2.830543  
+\end{verbatim}
+GARCH(2,1):\\
+\begin{verbatim}
+alpha1 0.0503265   0.0297111    1.694  0.09029 .  *
+alpha2 0.0771708   0.0444357    1.737  0.08244 .  *
 
-
-
+Ljung-Box Test     R^2  Q(10)  10.34415  0.410836    
+Ljung-Box Test     R^2  Q(15)  10.78324  0.7678034
+Log Likelihood:
+ 870.7469    normalized:  1.429798
+      AIC       BIC       SIC      HQIC 
+-2.843176 -2.806954 -2.843309 -2.829084 
+\end{verbatim}
+Despite having a higher log-likelihood and lower AIC, the alpha1 and alpha2 parameters in the GARCH(2,1) is not significant at 0.05. Hence, we will use GARCH(1,1) as the model\\
+\begin{equation*}
+\begin{split}
+r_[t} &= 1.237\times 10^{-2}+a_{t}\\
+a_{t} &= \sigma_{t} \epsilon_{t}\\
+a_{t}^{2} &= 2.592\times 10^{-4}+9.878\times 10^{-2}a_{t-1}^{2}+0.8298\sigma_{t-1}^2\\
+\epsilon_{t} &\sim N(0,1)\\
+\end{split]
+\end{equation*}
 
 \end{document}
