@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+\usepackage[fleqn]{amsmath}
+\usepackage[document]{ragged2e}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\graphicspath{ {plots/} }
+\usepackage{multirow}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\begin{document}
+
+Q1)\\
+\bigskip
+a)\\
+\bigskip
+Ljung-Box Test (10 Lags):\\
+X-squared = 898.09, df = 10, p-value < 2.2e-1658\\
+Hence the we can reject the Null Hypothesis: First 10 lags of ACF of ${a_{t}^{2}}$ is 0.\\
+LM ARCH Test:\\
+\begingroup
+\fontsize{12pt}{10pt}\selectfont
+\begin{verbatim}
+ Lags Statistic       df pvalue
+   10  802.2256 7.857143      0
+\end{verbatim} 
+\endgroup
+Hence, we can reject the Null Hypothesis: There is no ARCH effects for first 10 lags.\\
+\bigskip
+Therefore, from the Ljung-Box Test and the LM ARCH Test, there is sufficient evidence that there are ARCH effects in the log returns of GM.\\
+\bigskip
+b)\\
+\bigskip
+ARCH(1)\\
+p-value of Ljung-Box Test($R^2$,lag 10):0 \\
+AIC: -4.242443\\
+\bigskip
+ARCH(2)\\
+p-value of Ljung-Box Test($R^2$,lag 10):6.008332e-10\\
+AIC:-4.410438\\
+\bigskip
+GARCH(1,1)\\
+p-value of Ljung-Box Test($R^2$,lag 10):0.5261773\\
+AIC: 1.125236\\ 
+\bigskip
+Since the Ljung-Box test on the first 2 models is significant, GARCH(1,1) is the most suitable. Hence,
+\begin{equation*}
+\begin{split}
+r_{t} &= -0.006190+a_{t} \\
+a_{t} &= \sigma_{t} \epsilon_{t}\\
+\sigma_{t}^{2} &= 0.010761+0.153134a_{t-1}^{2}+0.805974\sigma_{t-1}^{2}\\
+\epsilon_{t} &\sim N(0,1)
+\end{split}
+\end{equation*}
+c)\\
+\bigskip
+GARCH-M(1,1) Model:
+\begin{equation*}
+\begin{split}
+r_{t} =  0.000775 + 
+\end{split}
+\end{equation*}
+\bigskip
+2)\\
+\bigskip
+a)\\
+\bigskip
+We fit an ARMA(1,5) Model from the auto.arima function. Then we conduct the test on the residuals of the model:
+
+Ljung-Box Test on $R^2$:
+X-squared = 2442.1, df = 10, p-value < 2.2e-16\\
+LM ARCH Test:
+\begin{verbatim}
+ Lags Statistic       df pvalue
+   10   1042.24 7.857143      0
+\end{verbatim}
+
+Since both test statistics are significant, we can reject the NULL Hypothesis: there is no ARCH effects for first 10 lags.\\
+\bigskip
+b)\\
+\bigskip
+We try to fit the follow models:\\
+ARMA(1,0)+GARCH(1,1)
+\begin{verbatim}
+Ljung-Box Test     R^2  Q(10)  13.94584  0.1754764 
+Log Likelihood:
+ 7855.843    normalized:  3.123596 
+      AIC       BIC       SIC      HQIC 
+-6.243215 -6.231625 -6.243223 -6.239009
+\end{verbatim}
+ARMA(0,1)+GARCH(1,1):
+\begin{verbatim}
+Ljung-Box Test     R^2  Q(10)  14.03401  0.171446 
+Log Likelihood:
+ 7856.114    normalized:  3.123704 
+      AIC       BIC       SIC      HQIC 
+-6.243431 -6.231840 -6.243439 -6.239224
+\end{verbatim}
+ARMA(1,1)+GARCH(1,1):
+\begin{verbatim}
+Ljung-Box Test     R^2  Q(10)  14.06938  0.1698506
+Log Likelihood:
+ 7859.965    normalized:  3.125234 
+       AIC       BIC       SIC      HQIC 
+-6.245697 -6.231789 -6.245709 -6.240650 
+\end{verbatim}
+ARMA(2,1)+GARCH(1,1):
+\begin{verbatim}
+Ljung-Box Test     R^2  Q(10)  13.95878  0.17488
+Log Likelihood:
+ 7860.663    normalized:  3.125512 
+      AIC       BIC       SIC      HQIC 
+-6.245458 -6.229231 -6.245473 -6.239568 
+ar2 not significant
+\end{verbatim}
+ARMA(1,2)+GARCH(1,1):
+\begin{verbatim}
+Ljung-Box Test     R^2  Q(10)  13.95475  0.1750656   
+Log Likelihood:
+ 7860.663    normalized:  3.125512 
+      AIC       BIC       SIC      HQIC 
+-6.245458 -6.229231 -6.245473 -6.239568 
+ma2 not significant 
+\end{verbatim}
+ARMA(2,2)+GARCH(1,1):
+\begin{verbatim}
+Ljung-Box Test     R^2  Q(10)  13.99351  0.1732879
+Log Likelihood:
+ 7860.697    normalized:  3.125526 
+      AIC       BIC       SIC      HQIC 
+-6.244689 -6.226145 -6.244709 -6.237959
+ar1,ar2,ma1,ma2 not significant
+\end{verbatim}
+In all cases, the mu is not significant. Since the last 3 models are misspecified, we will choose ARMA(1,1)+GARCH(1,1) since it has the highest Log-likelihood and lowest AIC. After removing the mu, we get:
+\begin{equation*}
+\begin{split}
+r_{t} &= 7.130\times 10^{-1}r_{t-1}+a_{t}-7.677\times 10^{-1}a_{t-1}\\
+a_{t} &= \sigma_{t} \epsilon_{t}\\
+\sigma^{2}_{t} &= 1.000\times 10^{-6}+6.996\times 10^{-2}a^{2}_{t-1}+9.248\times 10^{-1}\sigma_{t-1}^{2}\\
+\epsilon_{t} &\sim N(0,1)
+\end{split}
+\end{equation*}
+c)\\
+\begin{verbatim}
+   meanForecast  meanError standardDeviation
+1 -0.0015129348 0.02770432        0.02770432
+2 -0.0010787226 0.02769177        0.02765025
+3 -0.0007691292 0.02765891        0.02759635
+4 -0.0005483892 0.02761582        0.02754263
+\end{verbatim}
+
+\end{document}
