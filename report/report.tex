@@ -150,5 +150,29 @@ c)\\
 3 -0.0007691292 0.02765891        0.02759635
 4 -0.0005483892 0.02761582        0.02754263
 \end{verbatim}
+\bigskip
+3)\\
+\bigskip
+a)\\
+\bigskip
+We test $H_{0}:\mu=0$ vs $H_{1}:\mu= 0$\\
+T-test: t = 4.2198, df = 608, p-value = 2.819e-05
+Hence, we reject the Null Hypothesis that expected monthly log return is zero.\\
+Ljung-Box Test(12 lags):X-squared = 14.821, df = 12, p-value = 0.2514\\
+Hence we cannot reject the Null Hypothesis that there are no serial correlations in the series.\\
+Next, we test for ARCH effects in the log returns:\\
+Ljung-Box Test ($R^2$,12 Lags): X-squared = 184.93, df = 12, p-value < 2.2e-16\\
+LM ARCH Test:\\
+\begin{verbatim}
+ Lags Statistic   df pvalue
+   12   145.429 9.36      0
+\end{verbatim}
+Therefore, we can reject the Null Hypothesis:there is no ARCH effect on the first 12 lags.\\
+\bigskip
+b)\\
+\bigskip
+
+
+
 
 \end{document}
